@@ -1,0 +1,29 @@
+name: syncterm-linux # you probably want to 'snapcraft register <name>'
+base: core18 # the base snap is the execution environment for this snap
+version: '2022.4.20' # just for humans, typically '1.2+git' or '1.3.2'
+summary: Ubuntu version of Syncterm - the BBS  terminal emulator
+description: |
+  Ubuntu version of Syncterm - the BBS  terminal emulator
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+icon:  syncterm_icon.png
+title: Syncterm
+
+apps:
+  syncterm:
+    command: syncterm-linux
+parts:
+  einstein:
+    # See 'snapcraft plugins'
+    plugin: dump
+    source: .
+    build-packages: [libncurses5]
+    stage-packages: [libncurses5]
+    organize:
+      syncterm: build/
+      syncterm.1: man/man1/
+
+architectures:
+  - build-on: amd64
+
